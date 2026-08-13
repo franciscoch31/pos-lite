@@ -1,0 +1,10 @@
+﻿# --- higiene basica ---
+node_modules/
+.env
+.env.*
+!.env*.example
+!.env*.ejemplo
+*.log
+Thumbs.db
+.DS_Store
+dist/

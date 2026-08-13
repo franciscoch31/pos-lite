@@ -1,0 +1,25 @@
+Option Explicit
+
+' Codigo de la hoja VENTA.
+' Aqui esta el truco del lector de codigo de barras: el lector (USB o Bluetooth
+' en modo teclado/HID) teclea el codigo en B3 y manda Enter. Eso dispara este
+' evento, se agrega el renglon y el cursor regresa solo a B3 para el siguiente.
+
+Private Sub Worksheet_Change(ByVal Target As Range)
+    If Target.Cells.Count > 1 Then Exit Sub
+    If Intersect(Target, Me.Range("B3")) Is Nothing Then Exit Sub
+
+    Dim codigo As String
+    codigo = Trim(CStr(Target.Value))
+
+    Application.EnableEvents = False
+    Target.ClearContents
+    Application.EnableEvents = True
+
+    If codigo <> "" Then POS.AgregarCodigo codigo
+    Me.Range("B3").Select
+End Sub
+
+Private Sub Worksheet_Activate()
+    Me.Range("B3").Select
+End Sub
